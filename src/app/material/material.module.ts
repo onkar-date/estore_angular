@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const MATERIAL_MODULES_LIST = [
   MatToolbarModule,
@@ -14,6 +15,7 @@ const MATERIAL_MODULES_LIST = [
   MatSidenavModule,
   MatFormFieldModule,
   MatSelectModule,
+  MatGridListModule,
 ];
 @NgModule({
   declarations: [],

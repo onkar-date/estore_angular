@@ -1,0 +1,17 @@
+<ng-container *ngFor="let product of products">
+  <div class="product-container">
+    <div class="img-container">
+      <img
+        [src]="'data:image/png;base64,' + product.image"
+        alt="Dynamic Image"
+      />
+    </div>
+    <div class="product-details">
+      <h6>{{ product.name }}</h6>
+      <p class="description">{{ product.description }}</p>
+    </div>
+    <div class="price-details">
+      <h6>{{ product.price | currency : "INR" }}</h6>
+    </div>
+  </div>
+</ng-container>
