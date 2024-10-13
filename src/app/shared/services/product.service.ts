@@ -7,10 +7,15 @@ import { Product } from '../../interface/Product.interface';
   providedIn: 'root',
 })
 export class ProductService {
+  private apiUrl = 'http://localhost:8080/api/products';
+
   constructor(private httpClient: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    const url = 'http://localhost:8080/api/products';
-    return this.httpClient.get<Product[]>(url);
+    return this.httpClient.get<Product[]>(this.apiUrl);
+  }
+
+  addProduct(productData: FormData): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}`, productData);
   }
 }
