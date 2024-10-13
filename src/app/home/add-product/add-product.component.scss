@@ -1,0 +1,57 @@
+.product-form {
+    .form-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+
+        @media (max-width: 768px) {
+            flex-direction: column; // Stack on smaller screens
+        }
+    }
+
+    .form-fields {
+        flex: 1;
+    }
+
+    .image-preview {
+        flex: 0 0 250px;
+        text-align: center;
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; // Keep image aspect ratio
+        }
+
+        @media (max-width: 768px) {
+            margin-top: 1rem; // Space between form and image on mobile
+            flex: none;
+        }
+    }
+
+    .file-upload {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        input[type="file"] {
+            margin-top: 0.5rem;
+        }
+    }
+
+    button {
+        align-self: flex-end;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .half-width {
+        width: calc(50% - 0.5rem);
+
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+    }
+}
