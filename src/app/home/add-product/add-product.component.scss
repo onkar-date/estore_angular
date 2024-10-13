@@ -1,57 +1,40 @@
-.product-form {
-    .form-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
+.img-wrapper {
+    position: relative; // Positioning for the label
+    width: 250px; // Set width of the box
+    height: 250px; // Set height of the box
+    border: 2px dashed #ccc; // Dashed border
+    border-radius: 8px; // Rounded corners
+    display: flex; // Flexbox for alignment
+    justify-content: center; // Center content horizontally
+    align-items: center; // Center content vertically
+    overflow: hidden; // Hide overflow
+    cursor: pointer; // Pointer cursor for the label
+    padding: 10px; // Add padding around the content
 
-        @media (max-width: 768px) {
-            flex-direction: column; // Stack on smaller screens
-        }
+    label {
+        width: 100%; // Full width for the label
+        height: 100%; // Full height for the label
+        display: flex; // Flexbox for centering
+        justify-content: center; // Center text
+        align-items: center; // Center text
+        text-align: center; // Center text alignment
+        color: #999; // Gray text color
+        font-size: 16px; // Font size
+        position: absolute; // Absolute positioning for centering
+        z-index: 1; // Make sure label is above the input
     }
 
-    .form-fields {
-        flex: 1;
+    input[type="file"] {
+        display: none; // Hide the file input
     }
 
-    .image-preview {
-        flex: 0 0 250px;
-        text-align: center;
-
-        img {
-            width: 100%;
-            height: auto;
-            object-fit: cover; // Keep image aspect ratio
-        }
-
-        @media (max-width: 768px) {
-            margin-top: 1rem; // Space between form and image on mobile
-            flex: none;
-        }
-    }
-
-    .file-upload {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1rem;
-
-        input[type="file"] {
-            margin-top: 0.5rem;
-        }
-    }
-
-    button {
-        align-self: flex-end;
-    }
-
-    .full-width {
-        width: 100%;
-    }
-
-    .half-width {
-        width: calc(50% - 0.5rem);
-
-        @media (max-width: 768px) {
-            width: 100%;
-        }
+    img {
+        width: 100%; // Image should take full width
+        height: 100%; // Image should take full height
+        object-fit: contain; // Ensure the image fits within the box without cropping
+        position: absolute; // Absolute positioning to cover the box
+        top: 0; // Align to top
+        left: 0; // Align to left
+        padding: 10px; // Add padding around the image
     }
 }

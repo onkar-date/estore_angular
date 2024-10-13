@@ -1,80 +1,88 @@
-<form [formGroup]="productForm" class="product-form">
-  <div class="form-container">
-    <!-- Left Side: Form Fields -->
-    <div class="form-fields">
-      <!-- Name Field -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Product Name</mat-label>
-        <input
-          matInput
-          formControlName="name"
-          placeholder="Enter product name"
-        />
-        <mat-error *ngIf="productForm.get('name')?.hasError('required')"
-          >Product name is required</mat-error
-        >
-        <mat-error *ngIf="productForm.get('name')?.hasError('minlength')"
-          >Name must be at least 3 characters long</mat-error
-        >
-      </mat-form-field>
+<div class="container-fluid">
+  <div class="row">
+    <form [formGroup]="productForm" class="col-md-6">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Name Field -->
+          <mat-form-field appearance="outline" class="col-12 mb-3">
+            <mat-label>Product Name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="Enter product name"
+            />
+            <mat-error *ngIf="productForm.get('name')?.hasError('required')"
+              >Product name is required</mat-error
+            >
+            <mat-error *ngIf="productForm.get('name')?.hasError('minlength')"
+              >Name must be at least 3 characters long</mat-error
+            >
+          </mat-form-field>
 
-      <!-- Description Field -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Product Description</mat-label>
-        <textarea
-          matInput
-          formControlName="description"
-          placeholder="Enter product description"
-        ></textarea>
-        <mat-hint>Max 255 characters</mat-hint>
-      </mat-form-field>
+          <!-- Description Field -->
+          <mat-form-field appearance="outline" class="col-12 mb-3">
+            <mat-label>Product Description</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              placeholder="Enter product description"
+            ></textarea>
+            <mat-hint>Max 255 characters</mat-hint>
+          </mat-form-field>
 
-      <!-- Price Field -->
-      <mat-form-field appearance="outline" class="half-width">
-        <mat-label>Price (in Rs)</mat-label>
-        <input
-          matInput
-          formControlName="price"
-          type="number"
-          placeholder="Enter price in Rs"
-        />
-        <mat-error *ngIf="productForm.get('price')?.hasError('required')"
-          >Price is required</mat-error
-        >
-        <mat-error *ngIf="productForm.get('price')?.hasError('min')"
-          >Price must be greater than or equal to 0</mat-error
-        >
-      </mat-form-field>
+          <!-- Price Field -->
+          <mat-form-field appearance="outline" class="col-md-6 mb-3">
+            <mat-label>Price (in Rs)</mat-label>
+            <input
+              matInput
+              formControlName="price"
+              type="number"
+              placeholder="Enter price in Rs"
+            />
+            <mat-error *ngIf="productForm.get('price')?.hasError('required')"
+              >Price is required</mat-error
+            >
+            <mat-error *ngIf="productForm.get('price')?.hasError('min')"
+              >Price must be greater than or equal to 0</mat-error
+            >
+          </mat-form-field>
 
-      <!-- Stock Quantity Field -->
-      <mat-form-field appearance="outline" class="half-width">
-        <mat-label>Stock Quantity</mat-label>
-        <input
-          matInput
-          formControlName="stockQuantity"
-          type="number"
-          placeholder="Enter stock quantity"
-        />
-        <mat-error
-          *ngIf="productForm.get('stockQuantity')?.hasError('required')"
-          >Stock quantity is required</mat-error
-        >
-        <mat-error *ngIf="productForm.get('stockQuantity')?.hasError('min')"
-          >Quantity must be greater than or equal to 0</mat-error
-        >
-      </mat-form-field>
-
-      <!-- Image Upload -->
-      <div class="file-upload full-width">
-        <label for="file">Upload Product Image</label>
-        <input type="file" id="file" (change)="onFileChange($event)" />
-        <mat-error *ngIf="productForm.get('image')?.hasError('required')"
-          >Product image is required</mat-error
-        >
+          <!-- Stock Quantity Field -->
+          <mat-form-field appearance="outline" class="col-md-6 mb-3">
+            <mat-label>Stock Quantity</mat-label>
+            <input
+              matInput
+              formControlName="stockQuantity"
+              type="number"
+              placeholder="Enter stock quantity"
+            />
+            <mat-error
+              *ngIf="productForm.get('stockQuantity')?.hasError('required')"
+              >Stock quantity is required</mat-error
+            >
+            <mat-error *ngIf="productForm.get('stockQuantity')?.hasError('min')"
+              >Quantity must be greater than or equal to 0</mat-error
+            >
+          </mat-form-field>
+        </div>
       </div>
+    </form>
 
-      <!-- Submit Button -->
+    <div class="col-md-6">
+      <div class="img-wrapper">
+        <label for="file" class="upload-label">
+          <span *ngIf="!imagePreview">Upload Product Image</span>
+          <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" />
+        </label>
+        <input type="file" id="file" (change)="onFileChange($event)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
       <button
+        class="ms-3"
         mat-raised-button
         color="primary"
         [disabled]="productForm.invalid"
@@ -83,10 +91,5 @@
         Add Product
       </button>
     </div>
-
-    <!-- Right Side: Image Preview -->
-    <div class="image-preview" *ngIf="imagePreview">
-      <img [src]="imagePreview" alt="Product Image Preview" />
-    </div>
   </div>
-</form>
+</div>
