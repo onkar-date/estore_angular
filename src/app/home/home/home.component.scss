@@ -1,5 +1,5 @@
 .example-container {
-    width: calc(100vw - var(--mat-toolbar-standard-width));
+    // width: calc(100vw - var(--mat-toolbar-standard-width));
     height: calc(100vh - var(--mat-toolbar-standard-height));
 }
 
@@ -18,4 +18,5 @@ mat-drawer-content {
 
 .home-content {
     margin-top: 1.5rem;
+    width: 100%;
 }

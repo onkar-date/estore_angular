@@ -1,0 +1,24 @@
+.img-container {
+    border: 1px solid #dfdcdc;
+    display: flex;
+    height: 25rem;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 15rem;
+        object-fit: contain;
+    }
+}
+
+.price-details {
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding-top: 0.5rem;
+}
+
+.description {
+    margin-top: 3rem;
+    .about-label {
+        color: #959595;
+    }
+}

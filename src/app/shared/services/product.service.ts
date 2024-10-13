@@ -15,6 +15,10 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this.apiUrl);
   }
 
+  getProductById(id: string): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.apiUrl}/${id}`);
+  }
+
   addProduct(productData: FormData): Observable<any> {
     return this.httpClient.post(`${this.apiUrl}`, productData);
   }

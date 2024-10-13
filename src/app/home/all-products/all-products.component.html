@@ -1,10 +1,7 @@
 <ng-container *ngFor="let product of products">
-  <div class="product-container">
+  <div class="product-container" (click)="showProductDetails(product.id)">
     <div class="img-container">
-      <img
-        [src]="'data:image/png;base64,' + product.image"
-        alt="Dynamic Image"
-      />
+      <img [appBase64Src]="product.image" alt="Dynamic Image" />
     </div>
     <div class="product-details">
       <h6>{{ product.name }}</h6>

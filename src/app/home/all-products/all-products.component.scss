@@ -6,6 +6,13 @@
     gap: 1rem; // Add gap between items
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+        border: 2px solid #ffffff; // Light green border on hover
+        box-shadow: 0 0 15px #87b6e7; // Green glow effect
+        transition: all 0.3s ease; // Smooth transition for glow effect
+    }
 
     .img-container {
         flex: 0 0 25%; // Fixed width for the image container
