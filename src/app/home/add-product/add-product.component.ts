@@ -65,7 +65,6 @@ export class AddProductComponent implements OnInit {
 
       this.productService.addProduct(formData).subscribe(
         (response) => {
-          console.log('Product added successfully', response);
           this.productForm.reset();
           this.imagePreview = null;
         },

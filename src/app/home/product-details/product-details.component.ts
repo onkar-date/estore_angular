@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../../interface/Product.interface';
+import { Product } from '../../shared/interface/Product.interface';
 import { ProductService } from '../../shared/services/product.service';
 
 @Component({
@@ -27,7 +27,6 @@ export class ProductDetailsComponent implements OnInit {
 
   fetchProductDetails(id: string): void {
     this.productService.getProductById(id).subscribe((product) => {
-      console.log(product);
       this.product = product;
     });
   }

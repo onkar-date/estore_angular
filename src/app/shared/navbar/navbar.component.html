@@ -8,19 +8,35 @@
   </button>
   <span class="brand-name" (click)="gotToHome()">E-Store</span>
   <span class="example-spacer"></span>
-  <button mat-raised-button (click)="goToAddProduct()">Add Product</button>
   <button
+    *ngIf="currentUser && isSeller()"
+    mat-raised-button
+    (click)="goToAddProduct()"
+  >
+    Add Product
+  </button>
+  <button
+    *ngIf="currentUser"
     mat-icon-button
     class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
+    aria-label="Example icon-button with cart icon"
   >
     <mat-icon color="primary">shopping_cart</mat-icon>
   </button>
   <button
+    *ngIf="currentUser"
     mat-icon-button
+    [matMenuTriggerFor]="menu"
     class="example-icon"
-    aria-label="Example icon-button with share icon"
+    aria-label="Example icon-button with account icon"
   >
     <mat-icon color="primary">account_circle</mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu" class="mt-2 me-2">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
