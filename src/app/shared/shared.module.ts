@@ -6,6 +6,6 @@ import { Base64SrcDirective } from './directives/base64-src.directive';
 @NgModule({
   declarations: [NavbarComponent, Base64SrcDirective],
   imports: [CommonModule, MaterialModule],
-  exports: [NavbarComponent, Base64SrcDirective],
+  exports: [NavbarComponent, Base64SrcDirective, MaterialModule],
 })
 export class SharedModule {}

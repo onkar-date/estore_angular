@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 const MATERIAL_MODULES_LIST = [
   MatToolbarModule,
@@ -18,6 +19,7 @@ const MATERIAL_MODULES_LIST = [
   MatSelectModule,
   MatGridListModule,
   MatInputModule,
+  MatMenuModule,
 ];
 @NgModule({
   declarations: [],

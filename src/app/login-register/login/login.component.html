@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="offset-md-4 col-md-4 mt-5">
+      <h4>Login</h4>
+    </div>
+
+    <div class="offset-md-4 col-md-4">
+      <form [formGroup]="loginForm">
+        <!-- Username -->
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            placeholder="Enter username"
+          />
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            placeholder="Enter password"
+            type="password"
+          />
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+      </form>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="w-100"
+        [disabled]="loginForm.invalid"
+        (click)="login()"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>

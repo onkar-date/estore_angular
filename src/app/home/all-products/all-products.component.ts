@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Product } from '../../interface/Product.interface';
+import { Product } from '../../shared/interface/Product.interface';
 import { ProductService } from './../../shared/services/product.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,6 @@ export class AllProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
-      console.log(this.products);
     });
   }
 }
