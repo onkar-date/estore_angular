@@ -24,7 +24,6 @@
     <mat-icon color="primary">shopping_cart</mat-icon>
   </button>
   <button
-    *ngIf="currentUser"
     mat-icon-button
     [matMenuTriggerFor]="menu"
     class="example-icon"
@@ -34,9 +33,20 @@
   </button>
 
   <mat-menu #menu="matMenu" class="mt-2 me-2">
-    <button mat-menu-item (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
+    <ng-container *ngIf="currentUser">
+      <button mat-menu-item>
+        <mat-icon>person-outline</mat-icon>
+        <span>{{ currentUser.firstName }}</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </ng-container>
+
+    <button mat-menu-item (click)="goToLogin()" *ngIf="!currentUser">
+      <mat-icon>login</mat-icon>
+      <span>Login</span>
     </button>
   </mat-menu>
 </mat-toolbar>

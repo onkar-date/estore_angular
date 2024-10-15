@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/interface/User.interface';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +41,13 @@ export class LoginComponent implements OnInit {
         )
         .subscribe((loggedInUser) => {
           this.loggedInUser = loggedInUser;
+          this.showSnackbar();
           this.router.navigate(['/home/all-products']);
         });
     }
+  }
+
+  showSnackbar(): void {
+    this.snackbarService.showSnackbar('Logged In!');
   }
 }

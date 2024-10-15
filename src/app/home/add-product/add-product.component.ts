@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../shared/services/product.service';
+import { User } from '../../shared/interface/User.interface';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserType } from '../../shared/enums/UserType.enum';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-add-product',
@@ -9,25 +13,32 @@ import { ProductService } from '../../shared/services/product.service';
 })
 export class AddProductComponent implements OnInit {
   productForm: FormGroup = new FormGroup({});
-  imagePreview: string | null = null; // To hold the image preview
+  imagePreview: string | null = null;
+  loggedInUser: User | null = null;
+  userType = UserType;
 
   constructor(
     private formBuilder: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private authService: AuthService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
-    this.initForm();
+    this.authService.user$.subscribe((user) => {
+      this.loggedInUser = user;
+      this.initForm();
+    });
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.productForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.maxLength(255)]],
       price: [null, [Validators.required, Validators.min(0)]],
       stockQuantity: [null, [Validators.required, Validators.min(0)]],
       image: [null, [Validators.required]],
-      sellerId: [2, [Validators.required]], // Adjust seller ID as needed
+      sellerId: [this.loggedInUser?.id, [Validators.required]],
     });
   }
 
@@ -48,30 +59,40 @@ export class AddProductComponent implements OnInit {
 
   onSubmit(): void {
     if (this.productForm.valid) {
-      const formData = new FormData();
+      const formData = this.createProductFormData();
 
-      formData.append('name', this.productForm.get('name')?.value);
-      formData.append(
-        'description',
-        this.productForm.get('description')?.value
-      );
-      formData.append('price', this.productForm.get('price')?.value);
-      formData.append(
-        'stockQuantity',
-        this.productForm.get('stockQuantity')?.value
-      );
-      formData.append('image', this.productForm.get('image')?.value);
-      formData.append('sellerId', this.productForm.get('sellerId')?.value);
-
-      this.productService.addProduct(formData).subscribe(
-        (response) => {
+      this.productService.addProduct(formData).subscribe({
+        next: (response) => {
           this.productForm.reset();
           this.imagePreview = null;
+          this.showSnackBar();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error adding product', error);
-        }
-      );
+        },
+      });
     }
+  }
+
+  private createProductFormData(): FormData {
+    const formData = new FormData();
+
+    formData.append('name', this.productForm.get('name')?.value);
+    formData.append('description', this.productForm.get('description')?.value);
+    formData.append('price', this.productForm.get('price')?.value);
+    formData.append(
+      'stockQuantity',
+      this.productForm.get('stockQuantity')?.value
+    );
+    formData.append('image', this.productForm.get('image')?.value);
+    formData.append('sellerId', this.productForm.get('sellerId')?.value);
+
+    return formData;
+  }
+
+  showSnackBar(): void {
+    this.snackbarService.showSnackbar('Product added succesfully!', {
+      duration: 4000,
+    });
   }
 }
