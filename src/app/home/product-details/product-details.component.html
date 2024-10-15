@@ -9,7 +9,7 @@
 
       <span>Special Price</span>
       <br />
-      <div class="price-details">{{ product.price | currency : "INR" }}</div>
+      <div class="price-details">{{ product.price | paiseToRupee }}</div>
 
       <div class="description">
         <span class="about-label">About</span>

@@ -8,7 +8,7 @@
       <p class="description">{{ product.description }}</p>
     </div>
     <div class="price-details">
-      <h6>{{ product.price | currency : "INR" }}</h6>
+      <h6>{{ product.price | paiseToRupee }}</h6>
     </div>
   </div>
 </ng-container>

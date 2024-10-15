@@ -27,7 +27,7 @@ export class AddProductComponent implements OnInit {
       price: [null, [Validators.required, Validators.min(0)]],
       stockQuantity: [null, [Validators.required, Validators.min(0)]],
       image: [null, [Validators.required]],
-      sellerId: [3, [Validators.required]], // Adjust seller ID as needed
+      sellerId: [2, [Validators.required]], // Adjust seller ID as needed
     });
   }
 
