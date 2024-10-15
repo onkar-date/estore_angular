@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '../interface/User.interface';
 import { AuthService } from '../services/auth.service';
 import { UserType } from '../enums/UserType.enum';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,11 @@ import { UserType } from '../enums/UserType.enum';
 export class NavbarComponent implements OnInit {
   currentUser: User | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackbarService: SnackbarService
+  ) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
@@ -37,6 +42,15 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.showSnackbar();
     this.router.navigate(['/login']);
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  showSnackbar(): void {
+    this.snackbarService.showSnackbar('Logged out succesfully!');
   }
 }

@@ -1,4 +1,7 @@
-<div class="container-fluid">
+<div
+  class="container-fluid"
+  *ngIf="loggedInUser && loggedInUser.role === userType.SELLER"
+>
   <div class="row">
     <form [formGroup]="productForm" class="col-md-6">
       <div class="container-fluid">
