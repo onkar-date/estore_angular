@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/interface/User.interface';
 import { SnackbarService } from '../../shared/services/snackbar.service';
+import { CartService } from '../../shared/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   initForm(): void {
     this.loginForm = this.fb.group({
-      username: ['rambo', [Validators.required]],
+      username: ['onkar', [Validators.required]],
       password: ['password123', [Validators.required]],
     });
   }
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
         .subscribe((loggedInUser) => {
           this.loggedInUser = loggedInUser;
           this.showSnackbar();
+          this.cartService.clearCart();
           this.router.navigate(['/home/all-products']);
         });
     }

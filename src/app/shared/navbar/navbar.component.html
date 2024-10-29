@@ -17,11 +17,15 @@
   </button>
   <button
     *ngIf="currentUser"
+    (click)="goToCart()"
     mat-icon-button
-    class="example-icon favorite-icon"
+    class="example-icon favorite-icon cart-wrapper"
     aria-label="Example icon-button with cart icon"
   >
     <mat-icon color="primary">shopping_cart</mat-icon>
+    <div class="cart-indcator-wrapper" *ngIf="cart?.items?.length">
+      <span class="cart-items-number">{{ cart?.items?.length }}</span>
+    </div>
   </button>
   <button
     mat-icon-button

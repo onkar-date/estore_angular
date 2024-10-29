@@ -4,6 +4,8 @@ import { User } from '../interface/User.interface';
 import { AuthService } from '../services/auth.service';
 import { UserType } from '../enums/UserType.enum';
 import { SnackbarService } from '../services/snackbar.service';
+import { CartService } from '../services/cart.service';
+import { Cart } from '../interface/Cart.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -12,16 +14,21 @@ import { SnackbarService } from '../services/snackbar.service';
 })
 export class NavbarComponent implements OnInit {
   currentUser: User | null = null;
-
+  cart: Cart | null = null;
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
+    });
+
+    this.cartService.cart$.subscribe((cart) => {
+      this.cart = cart;
     });
   }
 
@@ -43,6 +50,7 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.showSnackbar();
+    this.cartService.clearCart();
     this.router.navigate(['/login']);
   }
 
@@ -52,5 +60,9 @@ export class NavbarComponent implements OnInit {
 
   showSnackbar(): void {
     this.snackbarService.showSnackbar('Logged out succesfully!');
+  }
+
+  goToCart(): void {
+    this.router.navigate(['/view-cart']);
   }
 }
