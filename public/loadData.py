@@ -34,18 +34,31 @@ for product in data['products']:
         print(f"Image file for '{product_name}' not found. Skipping this product.")
         continue
 
-    # Prepare SQL query
-    query = """
-    INSERT INTO products (name, description, price, stock_quantity, seller_id, image)
-    VALUES (%s, %s, %s, %s, %s, %s)
+    # Insert product into products table
+    product_query = """
+    INSERT INTO products (name, description, price, stock_quantity, seller_id)
+    VALUES (%s, %s, %s, %s, %s)
     """
-    values = (product_name, product_description, price, stock_quantity, seller_id, image_data)
+    product_values = (product_name, product_description, price, stock_quantity, seller_id)
 
-    # Execute the query
     try:
-        cursor.execute(query, values)
+        cursor.execute(product_query, product_values)
+        product_id = cursor.lastrowid  # Retrieve the product ID for the inserted product
     except mysql.connector.Error as err:
         print(f"Error inserting {product_name}: {err}")
+        continue
+
+    # Insert image into images table
+    image_query = """
+    INSERT INTO images (product_id, image, is_primary)
+    VALUES (%s, %s, %s)
+    """
+    image_values = (product_id, image_data, True)  # Set 'is_primary' to True
+
+    try:
+        cursor.execute(image_query, image_values)
+    except mysql.connector.Error as err:
+        print(f"Error inserting image for {product_name}: {err}")
         continue
 
 # Commit changes and close the connection

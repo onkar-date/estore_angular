@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { provideHttpClient } from '@angular/common/http';
 import { LoginRegisterModule } from './login-register/login-register.module';
+import { CartModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { LoginRegisterModule } from './login-register/login-register.module';
     SharedModule,
     HomeModule,
     LoginRegisterModule,
+    CartModule,
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],

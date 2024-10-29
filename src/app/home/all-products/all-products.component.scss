@@ -29,6 +29,7 @@
 
     .product-details {
         max-width: 40%; // Set max width for product details
+        min-width: 40%; // Set max width for product details
         margin: 0 1rem; // Add margin for spacing
 
         h4 {
@@ -57,9 +58,16 @@
         flex-direction: column; // Stack elements vertically
 
         .img-container {
-            flex: none; // Reset flex for mobile
+            display: flex; // Reset flex for mobile
+            justify-content: center;
             width: 100%; // Full width for images
             height: auto; // Height auto to maintain aspect ratio
+
+            img {
+                width: 34%;
+                height: 100%; // Set height to fill the container
+                object-fit: contain; // Change to contain to fit the image within the container
+            }
         }
 
         .product-details {

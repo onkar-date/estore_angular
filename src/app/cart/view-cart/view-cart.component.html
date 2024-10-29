@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row" *ngIf="!cart?.items?.length">
+    <div class="col-12 empty-cart-section">
+      <mat-icon>shopping_cart</mat-icon>
+    </div>
+
+    <div class="col-12 d-flex justify-content-center mt-3">
+      <h2 style="color: #989898">Cart is empty!</h2>
+    </div>
+  </div>
+  <ng-container *ngIf="cart?.items?.length">
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h4>Cart</h4>
+          <div *ngIf="cart">
+            <h5>Total : {{ cart.totalAmount | paiseToRupee }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row border p-3" *ngFor="let item of cart?.items">
+      <div
+        class="col-md-2 d-flex justify-content-sm-center justify-content-md-start"
+      >
+        <div class="img-wrapper">
+          <img
+            class="product-img"
+            [appBase64Src]="item.product.images | fetchPrimaryImage"
+            [alt]="item.product.name"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-4 mt-4">
+        <h6>{{ item.product.name }}</h6>
+        <div>
+          <span>Price : {{ getTotalPrice(item) | paiseToRupee }}</span>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div
+          class="quantity d-flex justify-content-md-center mt-4 align-items-center"
+        >
+          <button
+            mat-mini-fab
+            aria-label="decrease quantity button"
+            (click)="decreaseQuantity(item.product.id)"
+          >
+            <mat-icon>remove</mat-icon>
+          </button>
+          <div class="mx-4">
+            <strong>{{ item.quantity }}</strong>
+          </div>
+          <button
+            mat-mini-fab
+            aria-label="decrease quantity button"
+            (click)="increaseQuantity(item.product.id)"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-2 mt-4">
+        <button
+          style="background-color: #ff5b5b; color: white"
+          mat-mini-fab
+          aria-label="decrease quantity button"
+          (click)="removeFromCart(item.product.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 d-flex justify-content-end">
+        <button mat-flat-button>Place Order</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
