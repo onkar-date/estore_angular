@@ -21,9 +21,7 @@
     </div>
 
     <div class="row border p-3" *ngFor="let item of cart?.items">
-      <div
-        class="col-md-2 d-flex justify-content-sm-center justify-content-md-start"
-      >
+      <div class="col-md-2 d-flex justify-content-center">
         <div class="img-wrapper">
           <img
             class="product-img"
@@ -40,39 +38,39 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div
-          class="quantity d-flex justify-content-md-center mt-4 align-items-center"
+          class="quantity d-flex justify-content-md-around justify-content-between mt-4 align-items-center"
         >
-          <button
-            mat-mini-fab
-            aria-label="decrease quantity button"
-            (click)="decreaseQuantity(item.product.id)"
-          >
-            <mat-icon>remove</mat-icon>
-          </button>
-          <div class="mx-4">
-            <strong>{{ item.quantity }}</strong>
+          <div class="d-flex justify-content-md-center align-items-center">
+            <button
+              mat-mini-fab
+              aria-label="decrease quantity button"
+              (click)="decreaseQuantity(item.product.id)"
+            >
+              <mat-icon>remove</mat-icon>
+            </button>
+            <div class="mx-4">
+              <strong>{{ item.quantity }}</strong>
+            </div>
+            <button
+              mat-mini-fab
+              aria-label="decrease quantity button"
+              (click)="increaseQuantity(item.product.id)"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
+
           <button
+            style="background-color: #ff5b5b; color: white"
             mat-mini-fab
             aria-label="decrease quantity button"
-            (click)="increaseQuantity(item.product.id)"
+            (click)="removeFromCart(item.product.id)"
           >
-            <mat-icon>add</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
         </div>
-      </div>
-
-      <div class="col-md-2 mt-4">
-        <button
-          style="background-color: #ff5b5b; color: white"
-          mat-mini-fab
-          aria-label="decrease quantity button"
-          (click)="removeFromCart(item.product.id)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
       </div>
     </div>
 
