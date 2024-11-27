@@ -1,4 +1,4 @@
-<ng-container *ngFor="let product of products">
+<ng-container *ngFor="let product of products$ | async">
   <div class="product-container" (click)="showProductDetails(product.id)">
     <div class="img-container">
       <img

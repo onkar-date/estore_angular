@@ -9,6 +9,11 @@ import { HomeModule } from './home/home.module';
 import { provideHttpClient } from '@angular/common/http';
 import { LoginRegisterModule } from './login-register/login-register.module';
 import { CartModule } from './cart/cart.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './store/app.state';
+import { ProductEffects } from './store/product/product.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +24,9 @@ import { CartModule } from './cart/cart.module';
     HomeModule,
     LoginRegisterModule,
     CartModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([ProductEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25 }),
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],
   bootstrap: [AppComponent],

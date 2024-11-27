@@ -2,6 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Cart, CartItem } from '../../shared/interface/Cart.interface';
 import { CartService } from '../../shared/services/cart.service';
 import { Product } from '../../shared/interface/Product.interface';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { Observable } from 'rxjs';
+import {
+  selectCart,
+  selectCartItems,
+  selectCartTotal,
+} from '../../store/cart/cart.selectors';
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeItemFromCart,
+} from '../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-view-cart',
@@ -9,15 +22,14 @@ import { Product } from '../../shared/interface/Product.interface';
   styleUrl: './view-cart.component.scss',
 })
 export class ViewCartComponent implements OnInit {
-  cart: Cart | null = null;
+  cartItems$!: Observable<CartItem[]>;
+  cartTotal$!: Observable<number>;
 
-  constructor(private cartService: CartService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.cartService.cart$.subscribe((cartData) => {
-      this.cart = cartData;
-      console.log(this.cart);
-    });
+    this.cartItems$ = this.store.select(selectCartItems);
+    this.cartTotal$ = this.store.select(selectCartTotal);
   }
 
   getTotalPrice(item: CartItem): number {
@@ -25,24 +37,17 @@ export class ViewCartComponent implements OnInit {
   }
 
   decreaseQuantity(productId: number): void {
-    if (this.isMinimumQuantityReached(productId)) {
-      return;
-    }
-    this.cartService.decreaseQuantity(productId);
+    this.store.dispatch(decreaseQuantity({ itemId: productId }));
+    // this.cartService.decreaseQuantity(productId);
   }
 
   increaseQuantity(productId: number): void {
-    this.cartService.increaseQuantity(productId);
-  }
-
-  isMinimumQuantityReached(productId: number): boolean {
-    return (
-      this.cart?.items.find((item) => item.product.id === productId)
-        ?.quantity === 1
-    );
+    this.store.dispatch(increaseQuantity({ itemId: productId }));
+    // this.cartService.increaseQuantity(productId);
   }
 
   removeFromCart(productId: number): void {
-    this.cartService.removeItemFromCart(productId);
+    // this.cartService.removeItemFromCart(productId);
+    this.store.dispatch(removeItemFromCart({ itemId: productId }));
   }
 }
