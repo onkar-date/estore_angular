@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../shared/interface/Product.interface';
 import { ProductService } from '../../shared/services/product.service';
-import { CartService } from '../../shared/services/cart.service';
 import { SnackbarService } from '../../shared/services/snackbar.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { addItemToCart } from '../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-product-details',
@@ -17,7 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private cartService: CartService,
+    private store: Store<AppState>,
     private snackbarService: SnackbarService
   ) {}
 
@@ -38,7 +40,7 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart(): void {
     if (this.product) {
-      this.cartService.addToCart(this.product, 1);
+      this.store.dispatch(addItemToCart({ product: this.product }));
       this.addedToCart = true;
       this.snackbarService.showSnackbar('Added to cart !');
     }

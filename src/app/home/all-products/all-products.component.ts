@@ -1,7 +1,11 @@
 import { Router } from '@angular/router';
 import { Product } from '../../shared/interface/Product.interface';
-import { ProductService } from './../../shared/services/product.service';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { loadProducts } from '../../store/product/product.actions';
+import { Observable } from 'rxjs';
+import { selectProducts } from '../../store/product/product.selectors';
 
 @Component({
   selector: 'app-all-products',
@@ -9,17 +13,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './all-products.component.scss',
 })
 export class AllProductsComponent implements OnInit {
-  products: Product[] = [];
+  products$!: Observable<Product[]>;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private router: Router, private store: Store<AppState>) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(loadProducts());
+
+    this.products$ = this.store.select(selectProducts);
+
+    this.products$.subscribe(console.log);
+  }
 
   showProductDetails(productId: number) {
     this.router.navigate([`home/product-details/${productId}`]);
-  }
-
-  ngOnInit(): void {
-    this.productService.getProducts().subscribe((products) => {
-      this.products = products;
-    });
   }
 }
