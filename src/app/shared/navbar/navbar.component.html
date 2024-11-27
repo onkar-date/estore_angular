@@ -23,9 +23,11 @@
     aria-label="Example icon-button with cart icon"
   >
     <mat-icon color="primary">shopping_cart</mat-icon>
-    <div class="cart-indcator-wrapper" *ngIf="cart?.items?.length">
-      <span class="cart-items-number">{{ cart?.items?.length }}</span>
-    </div>
+    <ng-container *ngIf="cartItems$ | async as cartItems">
+      <div class="cart-indcator-wrapper" *ngIf="cartItems.length">
+        <span class="cart-items-number">{{ cartItems.length }}</span>
+      </div>
+    </ng-container>
   </button>
   <button
     mat-icon-button

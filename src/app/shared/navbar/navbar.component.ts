@@ -4,8 +4,12 @@ import { User } from '../interface/User.interface';
 import { AuthService } from '../services/auth.service';
 import { UserType } from '../enums/UserType.enum';
 import { SnackbarService } from '../services/snackbar.service';
-import { CartService } from '../services/cart.service';
-import { Cart } from '../interface/Cart.interface';
+import { Cart, CartItem } from '../interface/Cart.interface';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { selectCartItems } from '../../store/cart/cart.selectors';
+import { clearCart } from '../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -14,22 +18,19 @@ import { Cart } from '../interface/Cart.interface';
 })
 export class NavbarComponent implements OnInit {
   currentUser: User | null = null;
-  cart: Cart | null = null;
+  cartItems$!: Observable<CartItem[]>;
   constructor(
     private authService: AuthService,
     private router: Router,
     private snackbarService: SnackbarService,
-    private cartService: CartService
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     });
-
-    this.cartService.cart$.subscribe((cart) => {
-      this.cart = cart;
-    });
+    this.cartItems$ = this.store.select(selectCartItems);
   }
 
   gotToHome(): void {
@@ -50,7 +51,7 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.showSnackbar();
-    this.cartService.clearCart();
+    this.store.dispatch(clearCart());
     this.router.navigate(['/login']);
   }
 
