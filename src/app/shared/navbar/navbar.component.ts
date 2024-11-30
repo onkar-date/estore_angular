@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../interface/User.interface';
-import { AuthService } from '../services/auth.service';
 import { UserType } from '../enums/UserType.enum';
 import { SnackbarService } from '../services/snackbar.service';
-import { Cart, CartItem } from '../interface/Cart.interface';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
-import { selectCartItems } from '../../store/cart/cart.selectors';
+import { selectLoggedInUser } from '../../store/user/user.selectors';
+import { logoutUser } from '../../store/user/user.actions';
+import { selectCart } from '../../store/cart/cart.selectors';
+import { CartState } from '../../store/cart/cart.reducer';
 import { clearCart } from '../../store/cart/cart.actions';
 
 @Component({
@@ -17,21 +18,19 @@ import { clearCart } from '../../store/cart/cart.actions';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
-  currentUser: User | null = null;
-  cartItems$!: Observable<CartItem[]>;
+  loggedInUser$: Observable<User | null>;
+  cartState$: Observable<CartState | null>;
+  userType = UserType;
   constructor(
-    private authService: AuthService,
+    private store: Store<AppState>,
     private router: Router,
-    private snackbarService: SnackbarService,
-    private store: Store<AppState>
-  ) {}
-
-  ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
-      this.currentUser = user;
-    });
-    this.cartItems$ = this.store.select(selectCartItems);
+    private snackbarService: SnackbarService
+  ) {
+    this.loggedInUser$ = store.select(selectLoggedInUser);
+    this.cartState$ = this.store.select(selectCart);
   }
+
+  ngOnInit(): void {}
 
   gotToHome(): void {
     this.router.navigate(['/home/all-products']);
@@ -41,15 +40,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home/add-product']);
   }
 
-  isSeller(): boolean {
-    if (this.currentUser) {
-      return this.currentUser.role === UserType.SELLER;
-    }
-    return false;
-  }
-
   logout(): void {
-    this.authService.logout();
+    this.store.dispatch(logoutUser());
     this.showSnackbar();
     this.store.dispatch(clearCart());
     this.router.navigate(['/login']);

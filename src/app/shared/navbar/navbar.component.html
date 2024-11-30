@@ -8,27 +8,30 @@
   </button>
   <span class="brand-name" (click)="gotToHome()">E-Store</span>
   <span class="example-spacer"></span>
-  <button
-    *ngIf="currentUser && isSeller()"
-    mat-raised-button
-    (click)="goToAddProduct()"
-  >
-    Add Product
-  </button>
-  <button
-    *ngIf="currentUser"
-    (click)="goToCart()"
-    mat-icon-button
-    class="example-icon favorite-icon cart-wrapper"
-    aria-label="Example icon-button with cart icon"
-  >
-    <mat-icon color="primary">shopping_cart</mat-icon>
-    <ng-container *ngIf="cartItems$ | async as cartItems">
-      <div class="cart-indcator-wrapper" *ngIf="cartItems.length">
-        <span class="cart-items-number">{{ cartItems.length }}</span>
-      </div>
-    </ng-container>
-  </button>
+  <ng-container *ngIf="loggedInUser$ | async as currentUser">
+    <button
+      *ngIf="currentUser && currentUser.role === userType.SELLER"
+      mat-raised-button
+      (click)="goToAddProduct()"
+    >
+      Add Product
+    </button>
+    <button
+      *ngIf="currentUser"
+      (click)="goToCart()"
+      mat-icon-button
+      class="example-icon favorite-icon cart-wrapper"
+      aria-label="Example icon-button with cart icon"
+    >
+      <mat-icon color="primary">shopping_cart</mat-icon>
+      <ng-container *ngIf="cartState$ | async as cart">
+        <div class="cart-indcator-wrapper" *ngIf="cart.items.length">
+          <span class="cart-items-number">{{ cart.items.length }}</span>
+        </div>
+      </ng-container>
+    </button>
+  </ng-container>
+
   <button
     mat-icon-button
     [matMenuTriggerFor]="menu"
@@ -39,7 +42,7 @@
   </button>
 
   <mat-menu #menu="matMenu" class="mt-2 me-2">
-    <ng-container *ngIf="currentUser">
+    <ng-container *ngIf="loggedInUser$ | async as currentUser">
       <button mat-menu-item>
         <mat-icon>person-outline</mat-icon>
         <span>{{ currentUser.firstName }}</span>
@@ -50,7 +53,11 @@
       </button>
     </ng-container>
 
-    <button mat-menu-item (click)="goToLogin()" *ngIf="!currentUser">
+    <button
+      mat-menu-item
+      (click)="goToLogin()"
+      *ngIf="!(loggedInUser$ | async)"
+    >
       <mat-icon>login</mat-icon>
       <span>Login</span>
     </button>
