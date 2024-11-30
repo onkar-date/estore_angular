@@ -1,0 +1,128 @@
+<div class="container">
+  <ng-container *ngIf="itemsToOrder.length">
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h4>Place Order</h4>
+          <div>
+            <h5>Total : {{ orderTotal$ | async | paiseToRupee }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row border p-3">
+      <!-- Order form -->
+      <div class="col-md-6 border-end">
+        <form [formGroup]="orderForm">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Name Field -->
+              <mat-form-field appearance="outline" class="col-12 mb-3">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  formControlName="name"
+                  placeholder="Enter name"
+                />
+                <mat-error *ngIf="orderForm.get('name')?.hasError('required')"
+                  >Name is required</mat-error
+                >
+              </mat-form-field>
+
+              <!-- Mobile Field -->
+              <mat-form-field appearance="outline" class="col-12 mb-3">
+                <mat-label>Mobile</mat-label>
+                <input
+                  matInput
+                  formControlName="mobile"
+                  type="number"
+                  placeholder="Enter mobile"
+                />
+                <mat-error *ngIf="orderForm.get('mobile')?.hasError('required')"
+                  >Mobile no. is required</mat-error
+                >
+              </mat-form-field>
+
+              <!-- Address Field -->
+              <mat-form-field appearance="outline" class="col-12 mb-3">
+                <mat-label>Address</mat-label>
+                <textarea
+                  matInput
+                  formControlName="address"
+                  placeholder="Enter address"
+                ></textarea>
+                <mat-hint>Max 255 characters</mat-hint>
+              </mat-form-field>
+
+              <!-- City Field -->
+              <mat-form-field appearance="outline" class="col-12 mb-3">
+                <mat-label>City</mat-label>
+                <input
+                  matInput
+                  formControlName="city"
+                  placeholder="Enter city"
+                />
+                <mat-error *ngIf="orderForm.get('city')?.hasError('required')"
+                  >City is required</mat-error
+                >
+              </mat-form-field>
+
+              <!-- State Field -->
+              <mat-form-field appearance="outline" class="col-12 mb-3">
+                <mat-label>State</mat-label>
+                <input
+                  matInput
+                  formControlName="state"
+                  placeholder="Enter state"
+                />
+                <mat-error *ngIf="orderForm.get('state')?.hasError('required')"
+                  >State is required</mat-error
+                >
+              </mat-form-field>
+
+              <!-- Upi Field -->
+              <mat-form-field appearance="outline" class="col-12 mb-3">
+                <mat-label>Upi</mat-label>
+                <input matInput formControlName="upi" placeholder="Enter upi" />
+                <mat-error *ngIf="orderForm.get('upi')?.hasError('required')"
+                  >UPI is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Order Items -->
+      <div class="col-md-6">
+        <div
+          *ngFor="let item of itemsToOrder"
+          class="d-flex border-bottom mb-3 pb-3"
+        >
+          <div class="img-wrapper">
+            <img
+              class="product-img"
+              [appBase64Src]="item.product.images | fetchPrimaryImage"
+              [alt]="item.product.name"
+            />
+          </div>
+
+          <div class="d-flex flex-column ms-4 justify-content-center">
+            <span>{{ item.product.name }}</span>
+            <span class="mt-1"
+              >Price : {{ item.totalPrice | paiseToRupee }}</span
+            >
+            <span class="mt-1">Quantity : {{ item.quantity }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 d-flex justify-content-end">
+        <button mat-flat-button (click)="placeOrder()">Place Order</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
