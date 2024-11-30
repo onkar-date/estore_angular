@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { effects, reducers } from './store/app.state';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     HomeModule,
     LoginRegisterModule,
     CartModule,
+    OrderModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),

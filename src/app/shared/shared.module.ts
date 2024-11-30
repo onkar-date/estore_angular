@@ -5,6 +5,7 @@ import { MaterialModule } from '../material/material.module';
 import { Base64SrcDirective } from './directives/base64-src.directive';
 import { PaiseToRupeePipe } from './pipes/paise-to-rupee.pipe';
 import { FetchPrimaryImagePipe } from './pipes/fetch-primary-image.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -12,7 +13,7 @@ import { FetchPrimaryImagePipe } from './pipes/fetch-primary-image.pipe';
     PaiseToRupeePipe,
     FetchPrimaryImagePipe,
   ],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, ReactiveFormsModule, FormsModule],
   providers: [CurrencyPipe],
   exports: [
     NavbarComponent,

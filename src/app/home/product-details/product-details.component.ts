@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../shared/interface/Product.interface';
 import { ProductService } from '../../shared/services/product.service';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import { addItemToCart } from '../../store/cart/cart.actions';
+import {
+  setItemsToOrder,
+  setOrderFromCart,
+} from '../../store/order/order.actions';
+import { OrderStateItem } from '../../store/order/order.models';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +25,8 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private store: Store<AppState>,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +49,19 @@ export class ProductDetailsComponent implements OnInit {
       this.store.dispatch(addItemToCart({ product: this.product }));
       this.addedToCart = true;
       this.snackbarService.showSnackbar('Added to cart !');
+    }
+  }
+
+  buyNow(): void {
+    if (this.product) {
+      this.store.dispatch(setOrderFromCart({ orderFromCart: false }));
+      const orderItem: OrderStateItem = {
+        product: this.product,
+        quantity: 1,
+        totalPrice: this.product.price,
+      };
+      this.store.dispatch(setItemsToOrder({ items: [orderItem] }));
+      this.router.navigate(['order/place-order']);
     }
   }
 }
