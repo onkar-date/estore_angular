@@ -15,14 +15,12 @@ import { selectProducts } from '../../store/product/product.selectors';
 export class AllProductsComponent implements OnInit {
   products$!: Observable<Product[]>;
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(private router: Router, private store: Store<AppState>) {
+    this.store.dispatch(loadProducts());
+  }
 
   ngOnInit(): void {
-    this.store.dispatch(loadProducts());
-
     this.products$ = this.store.select(selectProducts);
-
-    this.products$.subscribe(console.log);
   }
 
   showProductDetails(productId: number) {
