@@ -12,8 +12,7 @@ import { CartModule } from './cart/cart.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducers } from './store/app.state';
-import { ProductEffects } from './store/product/product.effects';
+import { effects, reducers } from './store/app.state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +24,7 @@ import { ProductEffects } from './store/product/product.effects';
     LoginRegisterModule,
     CartModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([ProductEffects]),
+    EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
   ],
   providers: [provideAnimationsAsync(), provideHttpClient()],

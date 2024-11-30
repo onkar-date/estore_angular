@@ -5,6 +5,9 @@ import { User } from '../../shared/interface/User.interface';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserType } from '../../shared/enums/UserType.enum';
 import { SnackbarService } from '../../shared/services/snackbar.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { selectLoggedInUser } from '../../store/user/user.selectors';
 
 @Component({
   selector: 'app-add-product',
@@ -20,12 +23,12 @@ export class AddProductComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private authService: AuthService,
+    private store: Store<AppState>,
     private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
+    this.store.select(selectLoggedInUser).subscribe((user) => {
       this.loggedInUser = user;
       this.initForm();
     });

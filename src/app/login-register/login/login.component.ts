@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/interface/User.interface';
 import { SnackbarService } from '../../shared/services/snackbar.service';
-import { CartService } from '../../shared/services/cart.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { loginUser } from '../../store/user/user.actions';
+import { selectLoggedInUser } from '../../store/user/user.selectors';
+import { clearCart } from '../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +21,17 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService,
     private snackbarService: SnackbarService,
-    private cartService: CartService
-  ) {}
+    private store: Store<AppState>
+  ) {
+    store.select(selectLoggedInUser).subscribe((user) => {
+      if (user) {
+        store.dispatch(clearCart());
+        this.showSnackbar();
+        this.router.navigate(['/home/all-products']);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -29,24 +39,15 @@ export class LoginComponent implements OnInit {
 
   initForm(): void {
     this.loginForm = this.fb.group({
-      username: ['onkar', [Validators.required]],
-      password: ['password123', [Validators.required]],
+      username: ['customer1', [Validators.required]],
+      password: ['pass123', [Validators.required]],
     });
   }
 
   login(): void {
     if (this.loginForm.valid) {
-      this.authService
-        .login(
-          this.loginForm.get('username')?.value,
-          this.loginForm.get('password')?.value
-        )
-        .subscribe((loggedInUser) => {
-          this.loggedInUser = loggedInUser;
-          this.showSnackbar();
-          this.cartService.clearCart();
-          this.router.navigate(['/home/all-products']);
-        });
+      const { username, password } = this.loginForm.value;
+      this.store.dispatch(loginUser({ username, password }));
     }
   }
 
