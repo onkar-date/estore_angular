@@ -18,3 +18,8 @@ export const loginUserFailure = createAction(
 );
 
 export const logoutUser = createAction(USER_ACTIONS.LOGOUT_USER);
+
+export const autoLogin = createAction(
+  USER_ACTIONS.AUTO_LOGIN,
+  props<{ user: User }>()
+);
