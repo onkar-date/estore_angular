@@ -4,6 +4,7 @@ import {
   loginUserSuccess,
   loginUserFailure,
   logoutUser,
+  autoLogin,
 } from './user.actions';
 import { User } from '../../shared/interface/User.interface';
 
@@ -45,5 +46,12 @@ export const userReducer = createReducer(
     loading: false,
     user: null,
     error: null,
+  })),
+
+  on(autoLogin, (state, { user }) => ({
+    ...state,
+    loading: false,
+    error: null,
+    user: user,
   }))
 );

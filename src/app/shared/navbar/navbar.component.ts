@@ -41,6 +41,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
+    localStorage.removeItem('user');
     this.store.dispatch(logoutUser());
     this.showSnackbar();
     this.store.dispatch(clearCart());

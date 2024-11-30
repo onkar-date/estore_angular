@@ -8,4 +8,7 @@ export const USER_ACTIONS = {
 
   // Logout User
   LOGOUT_USER: '[User] Logout User',
+
+  // Auto Login
+  AUTO_LOGIN: '[User] Auto Login User',
 };
