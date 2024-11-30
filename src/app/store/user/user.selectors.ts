@@ -20,7 +20,7 @@ export const selectUserError = createSelector(
   (state) => state.error
 );
 
-export const selectUserToken = createSelector(
+export const selectAuthToken = createSelector(
   selectUserState,
   (state) => state.user?.token
 );
