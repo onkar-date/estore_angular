@@ -1,6 +1,8 @@
 export const ORDER_FEATURE_NAME = 'order';
 
 export const ORDER_ACTIONS = {
+  INIT_ORDER_STATE: '[Order] Init Order State',
+
   // Load Orders
   LOAD_ORDERS: '[Order] Load Orders',
   LOAD_ORDERS_SUCCESS: '[Order] Load Orders Success',

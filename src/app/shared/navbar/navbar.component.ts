@@ -11,6 +11,7 @@ import { logoutUser } from '../../store/user/user.actions';
 import { selectCart } from '../../store/cart/cart.selectors';
 import { CartState } from '../../store/cart/cart.reducer';
 import { clearCart } from '../../store/cart/cart.actions';
+import { initOrderState } from '../../store/order/order.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -49,6 +50,7 @@ export class NavbarComponent implements OnInit {
     this.store.dispatch(logoutUser());
     this.showSnackbar();
     this.store.dispatch(clearCart());
+    this.store.dispatch(initOrderState());
     this.router.navigate(['/login']);
   }
 

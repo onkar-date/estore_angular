@@ -5,6 +5,7 @@ import {
   fetchCustomerOrders,
   fetchCustomerOrdersFailure,
   fetchCustomerOrdersSuccess,
+  initOrderState,
   initPlaceOrder,
   placeOrder,
   placeOrderFailure,
@@ -47,6 +48,10 @@ const initialState: OrderState = {
 
 export const orderReducer = createReducer(
   initialState,
+
+  on(initOrderState, (state) => ({
+    ...initialState,
+  })),
 
   on(setItemsToOrder, (state, { items }) => ({
     ...state,
