@@ -40,6 +40,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home/add-product']);
   }
 
+  goToCustomerOrders(): void {
+    this.router.navigate(['/order/my-orders']);
+  }
+
   logout(): void {
     localStorage.removeItem('user');
     this.store.dispatch(logoutUser());

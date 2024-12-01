@@ -1,0 +1,31 @@
+div[status="PENDING"] {
+    border-radius: 8px;
+    padding: 6px;
+    font-size: small;
+    background-color: #ff9800; /* Light gray for pending */
+    color: white; /* Orange text */
+}
+
+div[status="SHIPPED"] {
+    border-radius: 8px;
+    padding: 6px;
+    font-size: small;
+    background-color: #2196f3; /* Light blue for shipped */
+    color: white; /* Blue text */
+}
+
+div[status="DELIVERED"] {
+    border-radius: 8px;
+    padding: 6px;
+    font-size: small;
+    background-color: #4caf50; /* Light green for delivered */
+    color: white; /* Green text */
+}
+
+div[status="CANCELLED"] {
+    border-radius: 8px;
+    padding: 6px;
+    font-size: small;
+    background-color: #f44336; /* Light red for cancelled */
+    color: white; /* Red text */
+}

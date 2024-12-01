@@ -1,1 +1,80 @@
-<p>my-orders works!</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h4>Orders</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <ng-container *ngIf="customerOrders$ | async as customerOrders">
+      <div class="col-12 mb-3" *ngFor="let order of customerOrders">
+        <div class="wrapper">
+          <div class="header d-flex justify-content-between p-2 px-5">
+            <div class="d-flex">
+              <div>
+                <div>Order Placed</div>
+                <div>{{ order.orderDate | date : "d MMM yyyy" }}</div>
+              </div>
+              <div class="ms-5">
+                <div>Total</div>
+                <div>{{ order.totalAmount | paiseToRupee }}</div>
+              </div>
+            </div>
+            <div class="ms-5">
+              <div [attr.status]="order.status" class="mt-1">
+                {{ order.status }}
+              </div>
+            </div>
+            <div class="">
+              <div>Order Id #</div>
+              <div>{{ order.id }}</div>
+            </div>
+          </div>
+          <div class="body m-3">
+            <div class="table-responsive">
+              <table class="table">
+                <thead></thead>
+                <tbody>
+                  <tr *ngFor="let item of order.items">
+                    <td style="width: 10%">
+                      <div class="img-wrapper">
+                        <img
+                          class="product-img"
+                          [appBase64Src]="item.base64Image"
+                          [alt]="item.name"
+                        />
+                      </div>
+                    </td>
+                    <td style="width: 40%">
+                      <div class="text-black-50">Name</div>
+                      <div>
+                        {{ item.name }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-black-50">Price</div>
+                      <div>{{ item.price | paiseToRupee }}</div>
+                    </td>
+                    <td>
+                      <div class="text-black-50">Quantity</div>
+                      <div>{{ item.quantity }}</div>
+                    </td>
+                    <td>
+                      <div class="text-black-50">Status</div>
+                      <div
+                        style="width: fit-content"
+                        [attr.status]="order.status"
+                      >
+                        {{ order.status }}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -16,4 +16,9 @@ export const ORDER_ACTIONS = {
   PLACE_ORDER: '[Order] Place Order',
   PLACE_ORDER_SUCCESS: '[Order] Place Order Success',
   PLACE_ORDER_FAILURE: '[Order] Place Order Failure',
+
+  // Customer Order Data
+  FETCH_CUSTOMER_ORDERS: '[Order] Fetch Customer Orders',
+  FETCH_CUSTOMER_ORDERS_SUCCESS: '[Order] Fetch Customer Orders Success',
+  FETCH_CUSTOMER_ORDERS_FAILURE: '[Order] Fetch Customer Orders Failure',
 };
