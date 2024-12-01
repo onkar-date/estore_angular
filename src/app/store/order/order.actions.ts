@@ -5,6 +5,8 @@ import { Order, OrderRequest } from '../../shared/interface/order.interface';
 import { CustomerOrder, OrderStateItem } from './order.models';
 import { HttpErrorResponse } from '@angular/common/http';
 
+export const initOrderState = createAction(ORDER_ACTIONS.INIT_ORDER_STATE);
+
 export const setItemsToOrder = createAction(
   ORDER_ACTIONS.SET_ITEMS_TO_ORDER,
   props<{ items: OrderStateItem[] }>()
