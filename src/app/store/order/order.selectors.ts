@@ -25,3 +25,18 @@ export const selectPlaceOrderStatus = createSelector(
   selectOrderState,
   (state) => state.placeOrderStatus
 );
+
+export const selectCustomerOrders = createSelector(
+  selectOrderState,
+  (state) => state.customerOrderData.customerOrders
+);
+
+export const selectCustomerOrdersLoading = createSelector(
+  selectOrderState,
+  (state) => state.customerOrderData.loading
+);
+
+export const selectCustomerOrdersError = createSelector(
+  selectOrderState,
+  (state) => state.customerOrderData.error
+);

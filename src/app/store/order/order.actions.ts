@@ -2,7 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { ORDER_ACTIONS } from './order.constants';
 import { Product } from '../../shared/interface/Product.interface';
 import { Order, OrderRequest } from '../../shared/interface/order.interface';
-import { OrderStateItem } from './order.models';
+import { CustomerOrder, OrderStateItem } from './order.models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const setItemsToOrder = createAction(
   ORDER_ACTIONS.SET_ITEMS_TO_ORDER,
@@ -34,3 +35,19 @@ export const placeOrderFailure = createAction(
 );
 
 export const initPlaceOrder = createAction(ORDER_ACTIONS.INIT_PLACE_ORDER);
+
+// Fetch Customer Order
+export const fetchCustomerOrders = createAction(
+  ORDER_ACTIONS.FETCH_CUSTOMER_ORDERS,
+  props<{ customerId: number }>()
+);
+
+export const fetchCustomerOrdersSuccess = createAction(
+  ORDER_ACTIONS.FETCH_CUSTOMER_ORDERS_SUCCESS,
+  props<{ customerOrders: CustomerOrder[] }>()
+);
+
+export const fetchCustomerOrdersFailure = createAction(
+  ORDER_ACTIONS.FETCH_CUSTOMER_ORDERS_FAILURE,
+  props<{ error: HttpErrorResponse }>()
+);

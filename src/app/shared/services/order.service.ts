@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderRequest } from '../interface/order.interface';
 import { Observable } from 'rxjs';
+import { CustomerOrder } from '../../store/order/order.models';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +14,11 @@ export class OrderService {
 
   placeOrder(order: OrderRequest): Observable<any> {
     return this.httpClient.post(`${this.apiUrl}`, order);
+  }
+
+  fetchCustomerOrders(customerId: number): Observable<CustomerOrder[]> {
+    return this.httpClient.get(
+      `${this.apiUrl}/user-orders/${customerId}`
+    ) as Observable<CustomerOrder[]>;
   }
 }
