@@ -7,6 +7,9 @@ import {
   fetchCustomerOrders,
   fetchCustomerOrdersFailure,
   fetchCustomerOrdersSuccess,
+  fetchSellerOrders,
+  fetchSellerOrdersFailure,
+  fetchSellerOrdersSuccess,
   placeOrder,
   placeOrderFailure,
   placeOrderSuccess,
@@ -38,6 +41,20 @@ export class OrderEffects {
             fetchCustomerOrdersSuccess({ customerOrders })
           ),
           catchError((error) => of(fetchCustomerOrdersFailure({ error })))
+        )
+      )
+    )
+  );
+
+  fetchSellerOrders$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchSellerOrders),
+      switchMap((action) =>
+        this.orderService.fetchSellerOrders(action.sellerId).pipe(
+          map((sellerOrders) =>
+            fetchSellerOrdersSuccess({ sellerOrders })
+          ),
+          catchError((error) => of(fetchSellerOrdersFailure({ error })))
         )
       )
     )

@@ -23,4 +23,9 @@ export const ORDER_ACTIONS = {
   FETCH_CUSTOMER_ORDERS: '[Order] Fetch Customer Orders',
   FETCH_CUSTOMER_ORDERS_SUCCESS: '[Order] Fetch Customer Orders Success',
   FETCH_CUSTOMER_ORDERS_FAILURE: '[Order] Fetch Customer Orders Failure',
+
+  // Seller Order Data
+  FETCH_SELLER_ORDERS: '[Order] Fetch Seller Orders',
+  FETCH_SELLER_ORDERS_SUCCESS: '[Order] Fetch Seller Orders Success',
+  FETCH_SELLER_ORDERS_FAILURE: '[Order] Fetch Seller Orders Failure',
 };
