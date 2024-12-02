@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h4>Manage Orders</h4>
+      </div>
+    </div>
+  
+    <div class="row">
+        <ng-container *ngIf="sellerOrders$ | async as sellerOrders">
+            <div class="col-12 table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of sellerOrders">
+                        <td style="width: 10%">
+                          <div class="img-wrapper">
+                            <img
+                              class="product-img"
+                              [appBase64Src]="item.base64Image"
+                              [alt]="item.name"
+                            />
+                          </div>
+                        </td>
+                        <td style="width: 40%">
+                          <div>
+                            {{ item.name }}
+                          </div>
+                        </td>
+                        <td>
+                          <div>{{ item.price | paiseToRupee }}</div>
+                        </td>
+                        <td>
+                          <div>{{ item.quantity }}</div>
+                        </td>
+                        <td>
+                          <div
+                            style="width: fit-content"
+                            [attr.status]="item.status"
+                          >
+                            {{ item.status }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </ng-container>
+    </div>
+  </div>
+  

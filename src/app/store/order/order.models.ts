@@ -11,13 +11,13 @@ export interface OrderStateItem {
 export interface CustomerOrder {
   id: number;
   userId: number;
-  items: Array<CustomerOrderItem>;
+  items: Array<OrderItem>;
   orderDate: string;
   status: OrderStatus;
   totalAmount: number;
 }
 
-export interface CustomerOrderItem {
+export interface OrderItem {
   id: number;
   name: string;
   description: string;

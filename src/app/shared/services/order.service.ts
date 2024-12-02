@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderRequest } from '../interface/order.interface';
 import { Observable } from 'rxjs';
-import { CustomerOrder } from '../../store/order/order.models';
+import { CustomerOrder, OrderItem } from '../../store/order/order.models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +20,11 @@ export class OrderService {
     return this.httpClient.get(
       `${this.apiUrl}/user-orders/${customerId}`
     ) as Observable<CustomerOrder[]>;
+  }
+
+  fetchSellerOrders(sellerId: number): Observable<OrderItem[]> {
+    return this.httpClient.get(
+      `${this.apiUrl}/seller-orders/${sellerId}`
+    ) as Observable<OrderItem[]>;
   }
 }

@@ -43,9 +43,13 @@
 
   <mat-menu #menu="matMenu" class="mt-2 me-2">
     <ng-container *ngIf="loggedInUser$ | async as currentUser">
-      <button mat-menu-item (click)="goToCustomerOrders()">
+      <button mat-menu-item (click)="goToCustomerOrders()" *ngIf="currentUser.role === userType.CUSTOMER">
         <mat-icon>local_shipping</mat-icon>
         <span>My Orders</span>
+      </button>
+      <button mat-menu-item (click)="goToSellerOrders()" *ngIf="currentUser.role === userType.SELLER">
+        <mat-icon>local_shipping</mat-icon>
+        <span>Manage Orders</span>
       </button>
       <button mat-menu-item>
         <mat-icon>person-outline</mat-icon>

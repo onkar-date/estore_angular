@@ -6,9 +6,10 @@ import { PlaceOrderComponent } from './place-order/place-order.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 
 @NgModule({
-  declarations: [PlaceOrderComponent, MyOrdersComponent],
+  declarations: [PlaceOrderComponent, MyOrdersComponent, ManageOrdersComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
