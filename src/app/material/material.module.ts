@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const MATERIAL_MODULES_LIST = [
   MatToolbarModule,
@@ -26,6 +27,7 @@ const MATERIAL_MODULES_LIST = [
   MatSnackBarModule,
   MatExpansionModule,
   MatChipsModule,
+  MatPaginatorModule,
 ];
 @NgModule({
   declarations: [],

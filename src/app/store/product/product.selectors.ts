@@ -19,3 +19,23 @@ export const selectProductError = createSelector(
   selectProductState,
   (state) => state.error
 );
+
+export const selectProductPageSize = createSelector(
+  selectProductState,
+  (state) => state.pageSize
+);
+
+export const selectCurrentPage = createSelector(
+  selectProductState,
+  (state) => state.currentPage
+);
+
+export const selectTotalProducts = createSelector(
+  selectProductState,
+  (state) => state.totalItems
+);
+
+export const selectTotalPages = createSelector(
+  selectProductState,
+  (state) => state.totalPages
+);

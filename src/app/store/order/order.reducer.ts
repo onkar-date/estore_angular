@@ -173,7 +173,7 @@ export const orderReducer = createReducer(
     sellerOrderData: {
       ...state.sellerOrderData,
       loading: false,
-      error: error.error,
+      error: error.message,
       sellerOrders: [],
     },
   }))

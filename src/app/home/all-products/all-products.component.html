@@ -15,3 +15,14 @@
     </div>
   </div>
 </ng-container>
+<mat-paginator
+  #paginator
+  class="demo-paginator"
+  (page)="handlePageEvent($event)"
+  [length]="totalProducts$ | async"
+  [pageSize]="pageSize$ | async"
+  [showFirstLastButtons]="true"
+  [pageIndex]="currentPage$ | async"
+  aria-label="Select page"
+>
+</mat-paginator>
