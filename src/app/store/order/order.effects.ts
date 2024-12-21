@@ -26,7 +26,10 @@ export class OrderEffects {
       mergeMap((action) =>
         this.orderService.placeOrder(action.order).pipe(
           map((placedOrder) => placeOrderSuccess({ placedOrder })),
-          catchError((error) => of(placeOrderFailure({ error })))
+          catchError((error) => {
+            console.error(error);
+            return of(placeOrderFailure({ error }));
+          })
         )
       )
     )
@@ -40,7 +43,10 @@ export class OrderEffects {
           map((customerOrders) =>
             fetchCustomerOrdersSuccess({ customerOrders })
           ),
-          catchError((error) => of(fetchCustomerOrdersFailure({ error })))
+          catchError((error) => {
+            console.error(error);
+            return of(fetchCustomerOrdersFailure({ error }));
+          })
         )
       )
     )
@@ -51,9 +57,7 @@ export class OrderEffects {
       ofType(fetchSellerOrders),
       switchMap((action) =>
         this.orderService.fetchSellerOrders(action.sellerId).pipe(
-          map((sellerOrders) =>
-            fetchSellerOrdersSuccess({ sellerOrders })
-          ),
+          map((sellerOrders) => fetchSellerOrdersSuccess({ sellerOrders })),
           catchError((error) => of(fetchSellerOrdersFailure({ error })))
         )
       )

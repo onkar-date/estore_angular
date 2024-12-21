@@ -10,12 +10,20 @@ export interface ProductState {
   products: Product[];
   loading: boolean;
   error: string | null;
+  currentPage: number;
+  totalItems: number;
+  totalPages: number;
+  pageSize: number;
 }
 
 const initialState: ProductState = {
   products: [],
   loading: false,
   error: null,
+  currentPage: 0,
+  totalItems: 0,
+  totalPages: 0,
+  pageSize: 5,
 };
 
 export const productReducer = createReducer(
@@ -26,11 +34,14 @@ export const productReducer = createReducer(
     loading: true,
   })),
 
-  on(loadProductsSuccess, (state, { products }) => ({
+  on(loadProductsSuccess, (state, { paginatedResponse }) => ({
     ...state,
     loading: false,
     error: null,
-    products: products,
+    products: paginatedResponse.content,
+    currentPage: paginatedResponse.currentPage,
+    totalItems: paginatedResponse.totalItems,
+    totalPages: paginatedResponse.totalPages,
   })),
 
   on(loadProductsFailure, (state, { error }) => ({
