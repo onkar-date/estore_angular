@@ -22,14 +22,16 @@ export class ProductEffects {
       ofType(loadProducts),
       withLatestFrom(this.store.select(selectProductPageSize)),
       mergeMap(([action, pageSize]) =>
-        this.productService.getProducts(action.page, pageSize).pipe(
-          map((paginatedResponse) =>
-            loadProductsSuccess({ paginatedResponse })
-          ),
-          catchError((error) =>
-            of(loadProductsFailure({ error: error.message }))
+        this.productService
+          .getProducts(action.page, pageSize, action.searchKey)
+          .pipe(
+            map((paginatedResponse) =>
+              loadProductsSuccess({ paginatedResponse })
+            ),
+            catchError((error) =>
+              of(loadProductsFailure({ error: error.message }))
+            )
           )
-        )
       )
     )
   );
