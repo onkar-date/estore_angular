@@ -5,7 +5,7 @@ import { PaginatedResponse } from '../../shared/interface/paginatedResponse.inte
 
 export const loadProducts = createAction(
   PRODUCT_ACTIONS.LOAD_PRODUCTS,
-  props<{ page: number }>()
+  props<{ page: number; searchKey?: string }>()
 );
 
 export const loadProductsSuccess = createAction(

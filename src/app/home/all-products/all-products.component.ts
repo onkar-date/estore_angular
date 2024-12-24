@@ -23,8 +23,9 @@ export class AllProductsComponent implements OnInit {
   currentPage$!: Observable<number>;
   pageSize$!: Observable<number>;
   totalProducts$!: Observable<number>;
+  searchKey: string = '';
   constructor(private router: Router, private store: Store<AppState>) {
-    this.store.dispatch(loadProducts({ page: 0 }));
+    this.store.dispatch(loadProducts({ page: 0, searchKey: this.searchKey }));
   }
 
   ngOnInit(): void {
@@ -39,6 +40,12 @@ export class AllProductsComponent implements OnInit {
   }
 
   handlePageEvent(event: PageEvent) {
-    this.store.dispatch(loadProducts({ page: event.pageIndex }));
+    this.store.dispatch(
+      loadProducts({ page: event.pageIndex, searchKey: this.searchKey })
+    );
+  }
+
+  applySearch() {
+    this.store.dispatch(loadProducts({ page: 0, searchKey: this.searchKey }));
   }
 }
